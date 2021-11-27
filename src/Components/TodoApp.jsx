@@ -8,16 +8,16 @@ const TodoApp = () => {
    const addTodoHandler = (todo) => {
       const newTodo = {
          id: Math.floor(Math.random() * 1000),
-         todo,
+         text: todo,
          isCompleted: false,
       };
-      setTodos([...todos, newTodo ]);
+      setTodos([...todos, newTodo]);
    };
 
    return (
       <div className="container">
          <TodoForm addTodoHandler={addTodoHandler} />
-         <TodoList />
+         <TodoList todos={todos} />
       </div>
    );
 };
