@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TodoForm = ({ addTodoHandler }) => {
+const TodoForm = ({ submitTodo }) => {
    const [todo, setTodo] = useState('');
 
    const changeHandler = (event) => {
@@ -14,7 +14,7 @@ const TodoForm = ({ addTodoHandler }) => {
          alert('please enter a todo...');
       }
 
-      addTodoHandler(todo);
+      submitTodo(todo);
       setTodo('');
    };
 
