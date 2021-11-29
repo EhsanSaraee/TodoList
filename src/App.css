@@ -34,3 +34,14 @@
    text-decoration: line-through;
    color: #ccc;
 }
+
+input {
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   outline: none;
+   padding: 5px 3px;
+}
+
+input:focus {
+   border: 1px solid blueviolet;
+}

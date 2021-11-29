@@ -31,7 +31,17 @@ const TodoApp = () => {
       setTodos(filteredTodo);
    };
 
-   const updateTodo = (id) => {};
+   const updateTodo = (id, newValue) => {
+      // find index
+      const index = todos.findIndex((todo) => todo.id === id);
+      // clone : do not mutate
+      const selectedTodo = { ...todos[index] };
+      selectedTodo.text = newValue;
+      // clone again
+      const updatedTodos = [...todos];
+      updatedTodos[index] = selectedTodo;
+      setTodos(updatedTodos);
+   };
 
    return (
       <div className="container">

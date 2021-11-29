@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const TodoForm = ({ submitTodo }) => {
+const TodoForm = ({ submitTodo, edit }) => {
    const [todo, setTodo] = useState('');
+   const inputRef = useRef(null);
+
+   useEffect(() => {
+      inputRef.current.focus();
+   }, []);
 
    const changeHandler = (event) => {
       setTodo(event.target.value);
@@ -20,8 +25,29 @@ const TodoForm = ({ submitTodo }) => {
 
    return (
       <form onSubmit={submitHandler}>
-         <input type="text" value={todo} onChange={changeHandler} />
-         <button type="submit">Add</button>
+         {edit ? (
+            <>
+               <input
+                  type="text"
+                  value={todo}
+                  onChange={changeHandler}
+                  placeholder="update todo ..."
+                  ref={inputRef}
+               />
+               <button type="submit">Update</button>
+            </>
+         ) : (
+            <>
+               <input
+                  type="text"
+                  value={todo}
+                  onChange={changeHandler}
+                  placeholder="add todo ..."
+                  ref={inputRef}
+               />
+               <button type="submit">Add</button>
+            </>
+         )}
       </form>
    );
 };

@@ -19,12 +19,19 @@ const TodoList = ({ todos, onComplete, onDelete, onUpdateTodo }) => {
       ));
    };
 
-   const editTodo = () => {
-      onUpdateTodo(edit.id);
+   const editTodo = (newValue) => {
+      onUpdateTodo(edit.id, newValue);
+      setEdit({ id: null, text: '' });
    };
 
    return (
-      <>{edit.id ? <TodoForm submitTodo={editTodo} /> : renderTodos()}</>
+      <>
+         {edit.id ? (
+            <TodoForm submitTodo={editTodo} edit={edit} />
+         ) : (
+            renderTodos()
+         )}
+      </>
    );
 };
 
