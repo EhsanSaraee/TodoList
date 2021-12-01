@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Navbar from './NavBar';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
@@ -6,6 +6,29 @@ import TodoList from './TodoList';
 const TodoApp = () => {
    const [todos, setTodos] = useState([]);
    const [filteredTodos, setFilteredTodos] = useState([]);
+   const [status, setStatus] = useState('All');
+
+   const filterTodos = useCallback(
+      (status) => {
+         switch (status) {
+            case 'Completed':
+               return setFilteredTodos(
+                  todos.filter((todo) => todo.isCompleted)
+               );
+            case 'UnCompleted':
+               return setFilteredTodos(
+                  todos.filter((todo) => !todo.isCompleted)
+               );
+            default:
+               return setFilteredTodos(todos);
+         }
+      },
+      [todos]
+   );
+
+   useEffect(() => {
+      filterTodos(status);
+   }, [todos, status, filterTodos]);
 
    const addTodo = (todo) => {
       const newTodo = {
@@ -45,26 +68,21 @@ const TodoApp = () => {
       setTodos(updatedTodos);
    };
 
-   const filterTodos = (status) => {
-      switch (status) {
-         case 'Completed':
-            return setFilteredTodos(todos.filter((todo) => todo.isCompleted));
-         case 'UnCompleted':
-            return setFilteredTodos(todos.filter((todo) => !todo.isCompleted));
-         default:
-            return setFilteredTodos(todos);
-      }
+   const selectHandler = (event) => {
+      setStatus(event.target.value);
+      filterTodos(event.target.value);
    };
 
    return (
       <div className="container">
          <Navbar
             unCompletedTodos={todos.filter((todo) => !todo.isCompleted).length}
-            filterTodos={filterTodos}
+            onSelect={selectHandler}
+            status={status}
          />
          <TodoForm submitTodo={addTodo} />
          <TodoList
-            todos={todos}
+            todos={filteredTodos}
             onComplete={completeTodo}
             onDelete={removeTodo}
             onUpdateTodo={updateTodo}
