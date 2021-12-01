@@ -5,6 +5,7 @@ import TodoList from './TodoList';
 
 const TodoApp = () => {
    const [todos, setTodos] = useState([]);
+   const [filteredTodos, setFilteredTodos] = useState([]);
 
    const addTodo = (todo) => {
       const newTodo = {
@@ -44,10 +45,22 @@ const TodoApp = () => {
       setTodos(updatedTodos);
    };
 
+   const filterTodos = (status) => {
+      switch (status) {
+         case 'Completed':
+            return setFilteredTodos(todos.filter((todo) => todo.isCompleted));
+         case 'UnCompleted':
+            return setFilteredTodos(todos.filter((todo) => !todo.isCompleted));
+         default:
+            return setFilteredTodos(todos);
+      }
+   };
+
    return (
       <div className="container">
          <Navbar
             unCompletedTodos={todos.filter((todo) => !todo.isCompleted).length}
+            filterTodos={filterTodos}
          />
          <TodoForm submitTodo={addTodo} />
          <TodoList
