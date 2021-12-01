@@ -3,8 +3,8 @@ const Todo = ({ todo, onComplete, onDelete, onEdit }) => {
       <section className="todo">
          <div onClick={onComplete} className={todo.isCompleted ? 'completed' : ''}>{todo.text}</div>
          <div>
-            <button onClick={onEdit}>Edit</button>
-            <button onClick={onDelete}>Delete</button>
+            <button className="btn" onClick={onEdit}>Edit</button>
+            <button className="btn remove" onClick={onDelete}>Delete</button>
          </div>
       </section>
    );

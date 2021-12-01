@@ -25,14 +25,18 @@ const TodoForm = ({ submitTodo, edit }) => {
 
    return (
       <form onSubmit={submitHandler}>
-         <input
-            type="text"
-            value={todo}
-            onChange={changeHandler}
-            placeholder={edit ? 'update todo ...' : 'add todo ...'}
-            ref={inputRef}
-         />
-         <button type="submit">{edit ? 'Update' : 'Add'}</button>
+         <div className="formControl">
+            <input
+               type="text"
+               value={todo}
+               onChange={changeHandler}
+               placeholder={edit ? 'update todo ...' : 'add todo ...'}
+               ref={inputRef}
+            />
+            <button className={`btn ${edit ? 'update' : 'add'}`} type="submit">
+               {edit ? 'Update' : 'Add'}
+            </button>
+         </div>
       </form>
    );
 };
